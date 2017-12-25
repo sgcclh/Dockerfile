@@ -30,7 +30,7 @@ RUN apk add --update ca-certificates \
     && curl -L http://storage.googleapis.com/kubernetes-helm/${FILENAME} -o /tmp/${FILENAME} \
     && tar -zxvf /tmp/${FILENAME} -C /tmp \
     && mv /tmp/linux-amd64/helm /bin/helm \
-    && pip install kube-shell
+    && pip install kube-shell \
     # Cleanup uncessary files
     && rm /var/cache/apk/* \
     && rm -rf /tmp/*
