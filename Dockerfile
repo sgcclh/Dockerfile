@@ -24,11 +24,13 @@ RUN apk add --update ca-certificates \
     && apk add curl \
     && apk add bash \
     && apk add git  \
+    && apk add python py2-pip \
     && curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && curl -L http://storage.googleapis.com/kubernetes-helm/${FILENAME} -o /tmp/${FILENAME} \
     && tar -zxvf /tmp/${FILENAME} -C /tmp \
     && mv /tmp/linux-amd64/helm /bin/helm \
+    && pip install kube-shell
     # Cleanup uncessary files
     && rm /var/cache/apk/* \
     && rm -rf /tmp/*
