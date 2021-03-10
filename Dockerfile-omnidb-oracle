@@ -1,0 +1,14 @@
+FROM omnidbteam/omnidb
+WORKDIR /home/omnidb/OmniDB
+USER root
+RUN sh -c "echo /home/omnidb/OmniDB/instantclient_21_1 > /etc/ld.so.conf.d/oracle-instantclient.conf" \
+    && apt-get update \
+    && apt-get install -y libaio1 unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && wget https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip \
+    && unzip instantclient-basic-linux.x64-21.1.0.0.0.zip \
+    && rm -f instantclient-basic-linux.x64-21.1.0.0.0.zip \
+    && ldconfig
+USER omnidb:omnidb
+ENV LD_LIBRARY_PATH=/usr/local/lib:/home/omnidb/OmniDB/instantclient_21_1:/usr/local/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu
+WORKDIR /home/omnidb/OmniDB/OmniDB
